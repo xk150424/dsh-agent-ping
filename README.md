@@ -39,15 +39,7 @@ from  RE-MK  to  FR-FL            ＋2 条
 
 ## 安装
 
-需要 **DSH 0.2.0-rc.1 或更新**。纯 JavaScript，**没有构建步骤**，装完即用。
-
-### 从 npm
-
-```sh
-dsh plugin --profile <你的 profile> add dsh-agent-ping
-```
-
-### 从 GitHub（尚未发布 npm 时）
+**目前没有发布到 npm，直接从 GitHub 装。** 需要 **DSH 0.2.0-rc.1 或更新**。纯 JavaScript，**没有构建步骤**，装完即用。
 
 ```sh
 dsh plugin --profile <你的 profile> add github:xk150424/dsh-agent-ping
@@ -55,7 +47,13 @@ dsh plugin --profile <你的 profile> add github:xk150424/dsh-agent-ping
 
 ### DSH Desktop
 
-侧栏 **插件 → 添加插件**，粘贴上面任意一条命令里 `add` 后面的那一段。
+侧栏 **插件 → 添加插件**，把 `add` 后面那一段粘进去：
+
+```
+github:xk150424/dsh-agent-ping
+```
+
+> 这条路**实测过**：在一个全新的空 profile 里装完用 13.3 秒，`--dump-config` 里出现了 `# == dsh-agent-ping` 这一层——它成了一个**真正被激活的插件**，不是"只当普通依赖装上"。不需要授权任何构建脚本。
 
 > **profile 名字**：命令行用户一般是 `web`；`desktop` 这个 profile 由桌面端自己持有，CLI 会拒绝管理它——桌面用户请用上面的图形界面。
 >

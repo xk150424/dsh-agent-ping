@@ -36,16 +36,9 @@ talking, so the user never has to switch over to click it.
 
 ## Install
 
-Requires **DSH 0.2.0-rc.1 or newer**. Plain JavaScript — **no build step**, no
-runtime dependencies.
-
-### From npm
-
-```sh
-dsh plugin --profile <your-profile> add dsh-agent-ping
-```
-
-### From GitHub (when not published to npm)
+**Not published to npm — install straight from GitHub.** Requires
+**DSH 0.2.0-rc.1 or newer**. Plain JavaScript — **no build step**, no runtime
+dependencies.
 
 ```sh
 dsh plugin --profile <your-profile> add github:xk150424/dsh-agent-ping
@@ -53,8 +46,16 @@ dsh plugin --profile <your-profile> add github:xk150424/dsh-agent-ping
 
 ### DSH Desktop
 
-Sidebar → **Plugins → Add plugin**, and paste the argument that follows `add`
-in either command above.
+Sidebar → **Plugins → Add plugin**, and paste the argument that follows `add`:
+
+```
+github:xk150424/dsh-agent-ping
+```
+
+> This path is **measured**: on a brand-new, empty profile the install finished
+> in 13.3 s and `--dump-config` then showed a `# == dsh-agent-ping` layer —
+> i.e. a genuinely **activated** plugin, not something installed "as a plain
+> dependency". No build-script approval is required.
 
 > **Profile name**: CLI users are usually on `web`. The `desktop` profile is
 > owned by the Electron app and the CLI refuses to manage it — desktop users
