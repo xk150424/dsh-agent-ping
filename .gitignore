@@ -2,6 +2,9 @@
 node_modules/
 dist/
 
+# 打包产物（npm pack / pnpm pack 的产物，挂到 Release 用，不进仓库）
+*.tgz
+
 # 日志
 *.log
 
