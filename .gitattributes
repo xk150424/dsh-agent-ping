@@ -1,0 +1,8 @@
+# 本仓库的文本文件一律以 LF 存进仓库，并且检出时也保持 LF。
+#
+# 为什么必须显式写这一条：
+# 本机 Git for Windows 的系统级配置里 core.autocrlf=true
+# （C:/Program Files/Git/etc/gitconfig）。不覆盖它，一次 git checkout 就会
+# 把工作区文件悄悄换成 CRLF —— 文件内容变了，SHA256 指纹也变了，
+# 而「哈希一致」正是这个仓库对外承诺的东西。
+* text=auto eol=lf

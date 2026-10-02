@@ -1,0 +1,68 @@
+{
+  "name": "dsh-agent-ping",
+  "version": "1.1.0",
+  "description": "跨会话 @ 呼叫同伴：先经用户当场授权，再唤醒并投递给另一个 DSH 会话。 Cross-session @ for DeepSeek Harness: ask the user for approval, then wake and deliver to another session.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Beitian233 <xk150424@163.com>",
+  "main": "./index.js",
+  "icon": "./icon.svg",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./locale/*.json": "./locale/*.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "cordis.patch.yml",
+    "icon.svg",
+    "locale/*.json",
+    "README.md",
+    "README.en.md",
+    "HANDOVER.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xk150424/dsh-agent-ping.git"
+  },
+  "homepage": "https://github.com/xk150424/dsh-agent-ping#readme",
+  "bugs": {
+    "url": "https://github.com/xk150424/dsh-agent-ping/issues"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "dsh-plugin",
+    "cordis",
+    "cordis-plugin",
+    "cross-session",
+    "multi-agent",
+    "mentions",
+    "agent"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-llm": ">=0.2.0-rc.1",
+    "@deepseek-ai/dsh-tools": ">=0.2.0-rc.1"
+  },
+  "dsh": {
+    "manifestVersion": 1,
+    "bundle": { "patch": "./cordis.patch.yml" },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": ["@deepseek-ai/dsh-client-ui-conversation"]
+    }
+  },
+  "meta": {
+    "title": "跨会话 @",
+    "description": "跨会话呼叫同伴。授权卡片浮在输入框上方：允许 / 拒绝 / 稍后。"
+  }
+}

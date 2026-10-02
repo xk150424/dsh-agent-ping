@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="dsh-agent-ping">
+  <title>dsh-agent-ping</title>
+  <!-- 底：品牌蓝圆角方 -->
+  <rect x="4" y="4" width="88" height="88" rx="22" fill="#4D6BFE"/>
+  <!-- 一个会话说的话 -->
+  <path d="M22 29a8 8 0 0 1 8-8h24a8 8 0 0 1 8 8v16a8 8 0 0 1-8 8H38l-12 9v-9h-4a8 8 0 0 1-8-8z"
+        fill="#ffffff" opacity="0.97"/>
+  <!-- 送出去的两道「ping」 -->
+  <path d="M68 30a16 16 0 0 1 8 13.8" fill="none" stroke="#ffffff"
+        stroke-width="5.5" stroke-linecap="round" opacity="0.55"/>
+  <path d="M68 17a29 29 0 0 1 14.5 25" fill="none" stroke="#ffffff"
+        stroke-width="5.5" stroke-linecap="round" opacity="0.9"/>
+</svg>

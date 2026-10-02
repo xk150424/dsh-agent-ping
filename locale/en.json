@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Agent Ping (@)",
+    "description": "Cross-session @ for DeepSeek Harness: ask the user for approval on a card, then wake and deliver the message to another session."
+  }
+}

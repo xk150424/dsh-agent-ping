@@ -1,0 +1,14 @@
+# 依赖与构建产物
+node_modules/
+dist/
+
+# 日志
+*.log
+
+# 备份文件（工作区规则：.bak 一律归档，不进仓库）
+*.bak
+
+# 系统杂物
+.DS_Store
+Thumbs.db
+desktop.ini

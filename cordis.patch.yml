@@ -1,0 +1,3 @@
+- insert:
+    - id: agent-ping
+      name: 'dsh-agent-ping'

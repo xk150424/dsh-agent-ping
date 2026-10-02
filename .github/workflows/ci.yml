@@ -1,0 +1,78 @@
+name: CI
+
+# 零 secret：不碰 npm、不碰 token。
+# 这里只做「不跑起来也能证明坏了」的检查——语法、manifest、包名与 patch 是否一致。
+#
+# 为什么单独一个文件：发布是手动的（见 README「发布」一节）。一旦发布改成手动，
+# 普通 push 就再也没有任何检查了——所以检查型 CI 必须独立于发布型 CI 存在。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: 语法检查
+        run: |
+          node --check index.js
+          node --check client.js
+          echo "OK: index.js client.js 语法通过"
+
+      - name: JSON 可解析
+        run: |
+          for f in package.json locale/en.json locale/zh.json; do
+            node -e "JSON.parse(require('fs').readFileSync(process.argv[1],'utf8'))" "$f"
+            echo "OK: $f"
+          done
+
+      - name: manifest 合法性
+        run: |
+          node -e "
+            const fs = require('fs');
+            const p = require('./package.json');
+            const bad = [];
+            const ok = (cond, msg) => { if (!cond) bad.push(msg); };
+
+            ok(/^[0-9]+\.[0-9]+\.[0-9]+$/.test(String(p.version)), 'version 不是稳定 semver：' + p.version);
+            ok(p.dsh && p.dsh.bundle && p.dsh.bundle.patch, '缺 dsh.bundle.patch —— 缺了它只会被当成普通依赖装上，不激活任何层');
+            ok(p.dsh && p.dsh.client && p.dsh.client.platform === 'web', 'dsh.client.platform 必须是 web');
+            ok(p.exports && p.exports['./package.json'], 'exports 缺 \"./package.json\" —— 缺了它前端那半会静默不加载，没有报错，卡片就是不出现');
+            ok(p.exports && p.exports['./client'], 'exports 缺 \"./client\" —— 声明了 dsh.client 就必须有它');
+            ok(fs.existsSync(p.dsh.bundle.patch), 'dsh.bundle.patch 指向的文件不存在：' + p.dsh.bundle.patch);
+            for (const f of (p.files || [])) {
+              if (f.includes('*')) continue;
+              ok(fs.existsSync(f), 'files 里列了但仓库里没有：' + f);
+            }
+
+            if (bad.length) { bad.forEach((m) => console.error('✗ ' + m)); process.exit(1); }
+            console.log('OK: ' + p.name + '@' + p.version);
+          "
+
+      - name: 包名、patch 行、客户端模块 id 三者必须一致
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          echo "包名 = $NAME"
+          grep -q "name: '$NAME'" cordis.patch.yml \
+            || { echo "✗ cordis.patch.yml 里的 name 不等于包名 —— Loader 会解析不到代码"; exit 1; }
+          grep -q "id: '$NAME'" client.js \
+            || { echo "✗ client.js 的模块 id 不等于包名"; exit 1; }
+          echo "OK: 三处一致"
+
+      - name: 行尾必须是 LF
+        run: |
+          if grep -rIl $'\r' --include='*.js' --include='*.json' --include='*.yml' \
+               --include='*.md' --include='*.svg' . 2>/dev/null | grep -v '^./.git/'; then
+            echo "✗ 上面这些文件里有 CRLF —— 本仓库承诺 LF"
+            exit 1
+          fi
+          echo "OK: 全部 LF"
