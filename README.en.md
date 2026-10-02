@@ -3,10 +3,10 @@
 Cross-session **@** for DeepSeek Harness — let one session call another.
 **The user approves first; then the message is delivered — waking the target if it is asleep.**
 
-> When one session needs another to do something, the only way used to be: switch
-> over, copy, paste, switch back. This plugin opens a channel instead. After the
-> user nods, the message goes straight into the other session. If that session
-> is offline, it is woken first.
+> Sessions can @ each other on their own. Before this, the only way to get a
+> message across was for a human to switch over, copy and paste. This plugin
+> opens a channel instead. After the user nods, the message goes straight into
+> the other session. If that session is offline, it is woken first.
 
 [简体中文](README.md) · [Handover notes](HANDOVER.md)
 
@@ -37,8 +37,8 @@ talking, so the user never has to switch over to click it.
 ## Install
 
 **Not published to npm — install straight from GitHub.** Requires
-**DSH 0.2.0-rc.1 or newer**. Plain JavaScript — **no build step**, no runtime
-dependencies.
+**DSH 0.2.0-rc.1 or newer; older versions are untested, and 0.1.7 is currently
+known to work.** Plain JavaScript — **no build step**, no runtime dependencies.
 
 ```sh
 dsh plugin --profile <your-profile> add github:xk150424/dsh-agent-ping
@@ -52,20 +52,11 @@ Sidebar → **Plugins → Add plugin**, and paste the argument that follows `add
 github:xk150424/dsh-agent-ping
 ```
 
-> This path is **measured**: on a brand-new, empty profile the install finished
-> in 13.3 s and `--dump-config` then showed a `# == dsh-agent-ping` layer —
-> i.e. a genuinely **activated** plugin, not something installed "as a plain
-> dependency". No build-script approval is required.
-
-> **Profile name**: CLI users are usually on `web`. The `desktop` profile is
-> owned by the Electron app and the CLI refuses to manage it — desktop users
-> should use the GUI path above.
+> You can also paste this repository's URL into DSH and let it install the plugin
+> for you.
 >
-> **After installing**: refresh the page. If you are **replacing** an already
-> installed version, restart the DSH process.
->
-> **Upgrading**: the plugin UI does not support automatic updates yet; uninstall
-> and reinstall the new version.
+> **After installing**: either restart DSH or refresh the page. If you are
+> **replacing** an already installed version, the DSH process must be restarted.
 
 ---
 
@@ -146,7 +137,8 @@ has never been alive on this machine cannot be woken.
 
 - **Local only.** It moves messages between sessions of the same DSH instance;
   it is not a network service.
-- **A human has to click.** That is the design, not a defect.
+- **A human has to click.** That is the design, not a defect — a later version
+  may change this, depending on what the author needs.
 - **Waking depends on the roster.** The roster is accumulated from previous
   calls; a brand-new name that is currently offline cannot be reached.
 - **No read receipt.** Delivery can be confirmed, comprehension cannot.
