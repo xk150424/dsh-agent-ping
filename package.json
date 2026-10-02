@@ -1,6 +1,6 @@
 {
   "name": "dsh-agent-ping",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "跨会话 @ 呼叫同伴：先经用户当场授权，再唤醒并投递给另一个 DSH 会话。 Cross-session @ for DeepSeek Harness: ask the user for approval, then wake and deliver to another session.",
   "type": "module",
   "license": "MIT",

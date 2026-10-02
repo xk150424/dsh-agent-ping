@@ -3,6 +3,13 @@
 **状态：已竣工（2026-10-02）。** 本文写给"以后要改它的人"。不重复设计理念，只放**动手前必须知道的事**——
 尤其是那些**踩过、而且踩的时候不报错**的坑。
 
+> **这份文档是作者的工作笔记。** 它长在作者的 DSH 工作区里，所以会出现 `_tools/`、
+> `DSH-调试启动.cmd` 这类只在他机器上存在的东西，也会用他给几个会话起的代号
+> （`RE-MK` / `FR-FL` / `TS-WK`）。**那些是环境细节，不是这个插件的要求**——
+> 读的时候只取技术结论就行。
+>
+> 公开发布仓库：<https://github.com/xk150424/dsh-agent-ping>
+
 ---
 
 ## 0. 一分钟
@@ -10,10 +17,10 @@
 | 问题 | 答案 |
 |---|---|
 | 它做什么 | 一个会话在【每次经用户当场授权】后 @ 另一个会话；**对方睡着会先唤醒再送** |
-| 谁在跑 | profile `desktop` 的 bundle `@local/agent-ping`，由本目录 `cordis.patch.yml` 插一行 |
+| 谁在跑 | profile `desktop` 的 bundle `dsh-agent-ping`，由本目录 `cordis.patch.yml` 插一行 |
 | 两份拷贝 | 工作区 `_plugin_agent_ping\` 与 `E:\Program\FL_Works\agent-ping\`，**改完必须哈希一致** |
 | 改完怎么生效 | `index.js` / `package.json` → **重启 DSH**；`client.js` → **刷新页面就行**（不用重启） |
-| 装/卸 | `plugin_manager` 的 `list_bundles` 里认 `@local/agent-ping`（removable=true） |
+| 装/卸 | `plugin_manager` 的 `list_bundles` 里认 `dsh-agent-ping`（removable=true） |
 
 ---
 
@@ -22,7 +29,7 @@
 | 文件 | 角色 | 改动的代价 |
 |---|---|---|
 | `package.json` | 包声明。`dsh.bundle.patch` 挂 patch；`dsh.client` 声明前端半边 | 改完**重启** |
-| `cordis.patch.yml` | 往 profile 里插一行：`- id: agent-ping / name: '@local/agent-ping'` | 改完**重启** |
+| `cordis.patch.yml` | 往 profile 里插一行：`- id: agent-ping / name: 'dsh-agent-ping'` | 改完**重启** |
 | `index.js` | **Host 半**：两个工具、两条路由、待批队列、唤醒 | 改完**重启** |
 | `client.js` | **Client 半**：那张卡片、入场动画、角标、会话里的一行回执 | **刷新页面**即可 |
 
