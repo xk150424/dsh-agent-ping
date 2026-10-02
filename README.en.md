@@ -52,6 +52,10 @@ Sidebar → **Plugins → Add plugin**, and paste the argument that follows `add
 github:xk150424/dsh-agent-ping
 ```
 
+> **Profile name**: CLI users are usually on `web`. The `desktop` profile is
+> owned by the Electron app and the CLI refuses to manage it — desktop users
+> should use the GUI path above.
+>
 > You can also paste this repository's URL into DSH and let it install the plugin
 > for you.
 >

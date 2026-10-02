@@ -53,6 +53,8 @@ dsh plugin --profile <你的 profile> add github:xk150424/dsh-agent-ping
 github:xk150424/dsh-agent-ping
 ```
 
+> **profile 名字**：命令行用户一般是 `web`；`desktop` 这个 profile 由桌面端自己持有，CLI 会拒绝管理它——桌面用户请用上面的图形界面。
+>
 > 或者把本仓库所在网址粘贴进DSH，让它帮你装。
 >
 > **装完**：重启DSH或刷新页面均可。如果是在**替换**一个已安装的旧版本，需要重启 DSH 进程。
